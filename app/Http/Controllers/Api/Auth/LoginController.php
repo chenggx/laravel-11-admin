@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Models\Api\AdminUser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -17,8 +18,19 @@ class LoginController extends Controller
             return $this->error('用户名或密码错误');
         }
 
-        $token = $user->createToken('admin', [''], now()->addDays(7))->plainTextToken;
+        $token = $user->createToken('admin', ['*'], now()->addDays(7))->plainTextToken;
 
         return $this->success(['token' => $token]);
+    }
+
+    public function logout(Request $request)
+    {
+        $admin = $request->user();
+        $res = $admin->tokens()->delete();
+        if (!$res) {
+            return $this->error('退出失败');
+        }
+
+        return $this->success();
     }
 }

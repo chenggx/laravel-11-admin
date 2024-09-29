@@ -2,11 +2,11 @@
 
 namespace App\Models\Api;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
-class AdminUser extends Model
+class AdminUser extends BaseModel
 {
     use HasFactory, HasApiTokens;
 

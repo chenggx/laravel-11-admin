@@ -15,8 +15,8 @@ class RoleSeeder extends Seeder
         $roles = [
             ['name' => '管理员', 'title' => 'admin'],
             ['name' => 'OEM', 'title' => 'oem'],
-            ['name' => '代理商', 'title' => ' agent'],
-            ['name' => '门店', 'title' => '  store'],
+            ['name' => '代理商', 'title' => 'agent'],
+            ['name' => '门店', 'title' => ' store'],
         ];
 
         \App\Models\Api\Role::query()->insert($roles);
