@@ -10,6 +10,8 @@ class AdminUser extends Model
 {
     use HasFactory, HasApiTokens;
 
+    protected $hidden = ['password'];
+
     protected static function boot()
     {
         parent::boot();
