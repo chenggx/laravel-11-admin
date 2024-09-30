@@ -18,7 +18,8 @@ class RoleRequest extends BaseRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'title' => 'required|unique:roles,title'
+            'title' => 'required|unique:roles,title',
+            'permissions' => 'nullable|array|exists:permissions,id'
         ];
     }
 
@@ -34,6 +35,7 @@ class RoleRequest extends BaseRequest
     {
         return [
             'name' => 'required|unique:roles,title',
+            'permissions' => 'required|array|exists:permissions,id'
         ];
     }
 
