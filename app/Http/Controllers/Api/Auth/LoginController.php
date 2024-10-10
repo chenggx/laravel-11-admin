@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Resources\Api\PermissionResource;
 use App\Models\Api\AdminUser;
+use App\Models\Api\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,6 +23,26 @@ class LoginController extends Controller
         $token = $user->createToken('admin', ['*'], now()->addDays(7))->plainTextToken;
 
         return $this->success(['token' => $token]);
+    }
+
+    public function asyncRoutes(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->id == 1) {
+            $permissions = Permission::query()
+                ->where('pid', 0)
+                ->with('recursiveChildren')
+                ->get();
+        } else {
+            $permissions = [];
+        }
+
+        //格式化输出 $permission，使用递归的方式
+
+
+
+        return $this->success(PermissionResource::collection($permissions));
     }
 
     public function logout(Request $request)

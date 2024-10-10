@@ -17,6 +17,8 @@ Route::namespace('Api')->name('api.')->group(function () {
     });
     //需要认证的路由
     Route::middleware(['auth:sanctum'])->group(function () {
+        //当前用户权限
+        Route::get('/async-routes', [LoginController::class, 'asyncRoutes'])->name('auth.async.routes');
         //退出登录
         Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
         //角色
